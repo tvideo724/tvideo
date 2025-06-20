@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="i (3).png">
+    <title> TVIDEO </title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #ff0000;
+            font-weight: 700;
+        }
+
+        .search-bar {
+            display: flex;
+            flex-grow: 0.6;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px 0 0 20px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar input:focus {
+            border-color: #065fd4;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            border-left: none;
+            border-radius: 0 20px 20px 0;
+            background-color: #f8f8f8;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-bar button:hover {
+            background-color: #e9e9e9;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            background-color: #065fd4;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0548a5;
+        }
+
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+
+        .btn-red {
+            background-color: #cc0000;
+        }
+
+        .btn-red:hover {
+            background-color: #b30000;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #606060;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .icon-btn:hover {
+            background-color: #f2f2f2;
+        }
+
+        nav {
+            background-color: white;
+            padding: 10px 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+        }
+
+        nav ul li a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #606060;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            background-color: #f2f2f2;
+            color: #065fd4;
+        }
+
+        nav ul li a i {
+            margin-right: 8px;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .auth-forms {
+            max-width: 500px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .auth-forms h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #065fd4;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #065fd4;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(6, 95, 212, 0.2);
+        }
+
+        .btn-block {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .switch-form {
+            text-align: center;
+            color: #065fd4;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        .switch-form:hover {
+            text-decoration: underline;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .video-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background-color: #000;
+        }
+
+        .video-info {
+            padding: 15px;
+        }
+
+        .video-info h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 48px;
+        }
+
+        .video-info p {
+            color: #606060;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .channel-info {
+            display: flex;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        .channel-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: white;
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+        }
+
+        /* Модальные окна */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #606060;
+        }
+
+        /* Страница видео */
+        .video-container {
+            margin-bottom: 30px;
+        }
+
+        .video-player {
+            width: 100%;
+            background-color: black;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            position: relative;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .video-player video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-info-page {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .video-info-page h1 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .video-stats {
+            display: flex;
+            justify-content: space-between;
+            color: #606060;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .video-actions {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .action-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #606060;
+            cursor: pointer;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background-color: #f0f0f0;
+            transition: background-color 0.3s;
+        }
+
+        .action-button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .channel-info-page {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0;
+            padding: 20px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .channel-details {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .channel-avatar-page {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .channel-text h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .channel-text p {
+            color: #606060;
+            font-size: 14px;
+        }
+
+        /* Страница профиля */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            gap: 30px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-info h2 {
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #065fd4;
+        }
+
+        .stat-label {
+            color: #606060;
+            font-size: 14px;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .upload-section {
+            background-color: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .upload-section h2 {
+            margin-bottom: 20px;
+            color: #065fd4;
+        }
+
+        /* Уведомления */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 5px;
+            color: white;
+            font-weight: 500;
+            z-index: 1100;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.4s;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background-color: #4caf50;
+        }
+
+        .notification.error {
+            background-color: #f44336;
+        }
+
+        .notification.info {
+            background-color: #2196f3;
+        }
+
+        /* Адаптация */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 10px;
+                gap: 10px;
+            }
+            
+            .search-bar {
+                width: 100%;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .video-player {
+                padding-bottom: 75%;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-actions {
+                justify-content: center;
+            }
+
+            .profile-stats {
+                justify-content: center;
+            }
+        }
+
+        /* Стили для смены аватарки */
+        .avatar-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-banner {
+            width: 100%;
+            height: 200px;
+            background-color: #065fd4;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner-upload {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .banner-upload-btn {
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Стили для описания канала */
+        .profile-description {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .profile-description p {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="logo" onclick="navigate('home')">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FF0000' d='M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z'/%3E%3C/svg%3E" alt="Логотип VideoHost">
+                <h1>TVIDEO</h1>
+            </div>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Поиск видео..." id="searchInput">
+                <button><i class="material-icons">search</i></button>
+            </div>
+            
+            <div class="user-actions" id="userActions">
+                <!-- Сюда будет вставляться контент через JS -->
+            </div>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="#" onclick="navigate('home')" class="active"><i class="material-icons">home</i> Главная</a></li>
+                <li><a href="#" onclick="navigate('popular')"><i class="material-icons">explore</i> Популярное</a></li>
+                <li><a href="#" onclick="navigate('subscriptions')"><i class="material-icons">subscriptions</i> Подписки</a></li>
+                <li><a href="#" onclick="navigate('profile')"><i class="material-icons">account_circle</i> Мой канал</a></li>
+            </ul>
+        </nav>
+        
+        <main id="mainContent">
+            <!-- Содержимое будет меняться в зависимости от страницы -->
+            <div class="auth-forms" id="authForms"></div>
+            <div class="video-grid" id="videoGrid"></div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 TVIDEO. Все права защищены.</p>
+        </footer>
+    </div>
+
+    <!-- Модальное окно для загрузки видео -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Загрузить видео</h2>
+            <form id="videoUploadForm">
+                <div class="form-group">
+                    <label for="videoTitle">Название видео</label>
+                    <input type="text" id="videoTitle" class="form-control" placeholder="Введите название" required>
+                </div>
+                <div class="form-group">
+                    <label for="videoDescription">Описание видео</label>
+                    <textarea id="videoDescription" class="form-control" placeholder="Введите описание" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="videoFile">Видео файл</label>
+                    <input type="file" id="videoFile" class="form-control" accept="video/*" required>
+                </div>
+                <div class="form-group">
+                    <label for="thumbnailFile">Превью</label>
+                    <input type="file" id="thumbnailFile" class="form-control" accept="image/*" required>
+                </div>
+                <button type="submit" class="btn btn-block">Загрузить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно для редактирования описания канала -->
+    <div class="modal" id="descriptionModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Описание канала</h2>
+            <form id="descriptionForm">
+                <div class="form-group">
+                    <textarea id="channelDescription" class="form-control" placeholder="Расскажите о своем канале..." rows="5"></textarea>
+                </div>
+                <button type="submit" class="btn btn-block">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Уведомления -->
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // Глобальные переменные
+        let currentPage = 'home';
+        let currentVideoId = null;
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Инициализируем хранилище, если оно пустое
+            if (!localStorage.getItem('users')) {
+                localStorage.setItem('users', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('videos')) {
+                localStorage.setItem('videos', JSON.stringify([]));
+            }
+
+            // Загружаем начальную страницу
+            loadPage(currentPage);
+            
+            // Обработчик формы загрузки видео
+            document.getElementById('videoUploadForm')?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                uploadVideo();
+            });
+            
+            // Обработчик поиска
+            document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    searchVideos(this.value);
+                }
+            });
+
+            // Обработчик формы описания канала
+            document.getElementById('descriptionForm')?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveDescription();
+            });
+        });
+
+        // Функции навигации
+        function navigate(page) {
+            currentPage = page;
+            loadPage(page);
+            updateNavActiveState();
+        }
+
+        function updateNavActiveState() {
+            document.querySelectorAll('nav ul li a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick')?.includes(currentPage)) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        function loadPage(page) {
+            const mainContent = document.getElementById('mainContent');
+            const userActions = document.getElementById('userActions');
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            // Обновляем кнопки пользователя
+            updateUserActions();
+            
+            // Загружаем контент в зависимости от страницы
+            switch(page) {
+                case 'home':
+                    mainContent.innerHTML = `
+                        <div class="auth-forms" id="authForms"></div>
+                        <div class="video-grid" id="videoGrid"></div>
+                    `;
+                    loadVideos();
+                    if (!currentUser) showLoginForm();
+                    break;
+                    
+                case 'profile':
+                    if (!currentUser) {
+                        showLoginForm();
+                        return;
+                    }
+                    mainContent.innerHTML = `
+                        <div class="profile-header" id="profileHeader"></div>
+                        <div class="upload-section">
+                            <h2>Мои видео</h2>
+                            <div class="video-grid" id="userVideos"></div>
+                        </div>
+                        <div class="upload-section">
+                            <h2>Загрузить новое видео</h2>
+                            <form id="uploadForm">
+                                <div class="form-group">
+                                    <label for="videoTitle">Название видео</label>
+                                    <input type="text" id="videoTitle" class="form-control" placeholder="Введите название" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="videoDescription">Описание видео</label>
+                                    <textarea id="videoDescription" class="form-control" placeholder="Введите описание" rows="3" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="videoFile">Видео файл</label>
+                                    <input type="file" id="videoFile" class="form-control" accept="video/*" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="thumbnailFile">Превью</label>
+                                    <input type="file" id="thumbnailFile" class="form-control" accept="image/*" required>
+                                </div>
+                            </form>
+                        </div>
+                    `;
+                    loadProfile();
+                    document.getElementById('uploadForm')?.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        uploadVideo();
+                    });
+                    break;
+                    
+                case 'video':
+                    if (!currentVideoId) {
+                        navigate('home');
+                        return;
+                    }
+                    mainContent.innerHTML = `
+                        <div class="video-container" id="videoContainer"></div>
+                        <div class="upload-section">
+                            <h2>Рекомендуемые видео</h2>
+                            <div class="video-grid" id="recommendedVideos"></div>
+                        </div>
+                    `;
+                    loadVideoPage(currentVideoId);
+                    loadRecommendedVideos();
+                    break;
+                    
+                default:
+                    mainContent.innerHTML = `
+                        <div class="auth-forms" id="authForms"></div>
+                        <div class="video-grid" id="videoGrid"></div>
+                    `;
+                    loadVideos();
+            }
+        }
+
+        // Функции для работы с пользователем
+        function updateUserActions() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const userActions = document.getElementById('userActions');
+            
+            if (currentUser) {
+                userActions.innerHTML = `
+                    <button class="icon-btn" onclick="showUploadModal()" title="Загрузить видео">
+                        <i class="material-icons">video_call</i>
+                    </button>
+                    <button class="icon-btn" title="Приложения">
+                        <i class="material-icons">apps</i>
+                    </button>
+                    <button class="icon-btn" title="Уведомления">
+                        <i class="material-icons">notifications</i>
+                    </button>
+                    <img src="${currentUser.avatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'%3E%3Cpath fill=\'%23666\' d=\'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z\'/%3E%3C/svg%3E'}" alt="Аватар" 
+                         style="width:40px;height:40px;border-radius:50%;cursor:pointer;" 
+                         onclick="navigate('profile')">
+                `;
+            } else {
+                userActions.innerHTML = `
+                    <button class="btn btn-secondary" onclick="showLoginForm()">Войти</button>
+                    <button class="btn" onclick="showRegisterForm()">Регистрация</button>
+                `;
+            }
+        }
+
+        function showLoginForm() {
+            const authForms = document.getElementById('authForms');
+            if (!authForms) return;
+            
+            authForms.style.display = 'block';
+            authForms.innerHTML = `
+                <h2>Вход в аккаунт</h2>
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" class="form-control" placeholder="Введите ваш email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Пароль</label>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="Введите пароль" required>
+                </div>
+                <button class="btn btn-block" onclick="login()">Войти</button>
+                <p class="switch-form" onclick="showRegisterForm()">Нет аккаунта? Зарегистрироваться</p>
+            `;
+        }
+
+        function showRegisterForm() {
+            const authForms = document.getElementById('authForms');
+            if (!authForms) return;
+            
+            authForms.style.display = 'block';
+            authForms.innerHTML = `
+                <h2>Регистрация</h2>
+                <div class="form-group">
+                    <label for="registerUsername">Имя пользователя</label>
+                    <input type="text" id="registerUsername" class="form-control" placeholder="Придумайте имя" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" class="form-control" placeholder="Введите ваш email" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Пароль</label>
+                    <input type="password" id="registerPassword" class="form-control" placeholder="Придумайте пароль" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerAvatar">Аватар (необязательно)</label>
+                    <input type="file" id="registerAvatar" class="form-control" accept="image/*">
+                </div>
+                <button class="btn btn-block" onclick="register()">Зарегистрироваться</button>
+                <p class="switch-form" onclick="showLoginForm()">Уже есть аккаунт</p>
+            `;
+        }
+
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type} show`;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function register() {
+            const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const avatarFile = document.getElementById('registerAvatar')?.files[0];
+            
+            // Проверка валидности email
+            if (!validateEmail(email)) {
+                showNotification('Пожалуйста, введите корректный email', 'error');
+                return;
+            }
+            
+            // Проверяем, есть ли уже пользователь с таким email
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            if (users.some(u => u.email === email)) {
+                showNotification('Пользователь с таким email уже существует', 'error');
+                return;
+            }
+            
+            // Создаем URL для аватарки
+            const avatarUrl = avatarFile ? URL.createObjectURL(avatarFile) : null;
+            
+            // Создаем нового пользователя
+            const newUser = {
+                id: Date.now(),
+                username,
+                email,
+                password,
+                avatar: avatarUrl,
+                banner: null,
+                videos: [],
+                description: '' // Добавляем поле для описания канала
+            };
+            
+            // Сохраняем пользователя
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            
+            // Обновляем интерфейс
+            updateUserActions();
+            showNotification('Регистрация прошла успешно!', 'success');
+            navigate('home');
+        }
+
+        function validateEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                updateUserActions();
+                document.getElementById('authForms').style.display = 'none';
+                loadVideos();
+                showNotification('Вход выполнен успешно!', 'success');
+            } else {
+                showNotification('Неверный email или пароль', 'error');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            updateUserActions();
+            navigate('home');
+            showNotification('Вы вышли из аккаунта', 'info');
+        }
+
+        // Функции для работы с видео
+        function loadVideos() {
+            const videoGrid = document.getElementById('videoGrid');
+            if (!videoGrid) return;
+            
+            const videos = JSON.parse(localStorage.getItem('videos')) || [];
+            
+            if (videos.length === 0) {
+                videoGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:40px;">Пока нет видео. Будьте первым, кто загрузит видео!</p>';
+                return;
+            }
+            
+            videoGrid.innerHTML = videos.map(video => `
+                <div class="video-card" onclick="openVideo(${video.id})">
+                    <img src="${video.thumbnailUrl}" alt="Превью" class="video-thumbnail">
+                    <div class="video-info">
+                        <h3>${video.title}</h3>
+                        <div class="channel-info">
+                            <img src="${video.authorAvatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'%3E%3Cpath fill=\'%23666\' d=\'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z\'/%3E%3C/svg%3E'}" class="channel-avatar">
+                            <p>${video.authorName}</p>
+                        </div>
+                        <p>${video.views} просмотров • ${new Date(video.date).toLocaleDateString()}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openVideo(videoId) {
+            currentVideoId = videoId;
+            navigate('video');
+        }
+
+        function loadVideoPage(videoId) {
+            const videoContainer = document.getElementById('videoContainer');
+            if (!videoContainer) return;
+            
+            // Находим видео
+            const videos = JSON.parse(localStorage.getItem('videos')) || [];
+            const video = videos.find(v => v.id === videoId);
+            
+            if (!video) {
+                videoContainer.innerHTML = '<p>Видео не найдено</p>';
+                return;
+            }
+            
+            // Увеличиваем счетчик просмотров
+            video.views++;
+            localStorage.setItem('videos', JSON.stringify(videos));
+            
+            // Заполняем страницу видео
+            videoContainer.innerHTML = `
+                <div class="video-player">
+                    <video controls autoplay>
+                        <source src="${video.videoUrl}" type="video/mp4">
+                        Ваш браузер не поддерживает видео тег.
+                    </video>
+                </div>
+                
+                <div class="video-info-page">
+                    <h1>${video.title}</h1>
+                    
+                    <div class="video-stats">
+                        <span>${video.views} просмотров • ${new Date(video.date).toLocaleDateString()}</span>
+                        <div>
+                            <span class="action-button"><i class="material-icons">thumb_up</i> ${video.likes}</span>
+                            <span class="action-button"><i class="material-icons">thumb_down</i> ${video.dislikes}</span>
+                            <span class="action-button"><i class="material-icons">share</i> Поделиться</span>
+                            <span class="action-button"><i class="material-icons">playlist_add</i> Сохранить</span>
+                        </div>
+                    </div>
+                    
+                    <div class="video-actions">
+                        <span class="action-button" onclick="likeVideo(${video.id})"><i class="material-icons">thumb_up</i> Нравится</span>
+                        <span class="action-button" onclick="dislikeVideo(${video.id})"><i class="material-icons">thumb_down</i> Не нравится</span>
+                        <span class="action-button"><i class="material-icons">share</i> Поделиться</span>
+                        <span class="action-button"><i class="material-icons">playlist_add</i> Сохранить</span>
+                        <span class="action-button"><i class="material-icons">more_horiz</i> Ещё</span>
+                    </div>
+                    
+                    <div class="channel-info-page">
+                        <div class="channel-details">
+                            <img src="${video.authorAvatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'%3E%3Cpath fill=\'%23666\' d=\'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z\'/%3E%3C/svg%3E'}" class="channel-avatar-page">
+                            <div class="channel-text">
+                                <h3>${video.authorName}</h3>
+                                <p>0 подписчиков</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-red">ПОДПИСАТЬСЯ</button>
+                    </div>
+
+                    <div class="video-description" style="margin-top: 25px;">
+                        <p>${video.description}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function loadRecommendedVideos() {
+            const videoGrid = document.getElementById('recommendedVideos');
+            if (!videoGrid) return;
+            
+            const videos = JSON.parse(localStorage.getItem('videos')) || [];
+            const recommendedVideos = videos.filter(v => v.id !== currentVideoId).slice(0, 4);
+            
+            if (recommendedVideos.length === 0) return;
+            
+            videoGrid.innerHTML = recommendedVideos.map(video => `
+                <div class="video-card" onclick="openVideo(${video.id})">
+                    <img src="${video.thumbnailUrl}" alt="Превью" class="video-thumbnail">
+                    <div class="video-info">
+                        <h3>${video.title}</h3>
+                        <div class="channel-info">
+                            <img src="${video.authorAvatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'%3E%3Cpath fill=\'%23666\' d=\'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z\'/%3E%3C/svg%3E'}" class="channel-avatar">
+                            <p>${video.authorName}</p>
+                        </div>
+                        <p>${video.views} просмотров • ${new Date(video.date).toLocaleDateString()}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function likeVideo(videoId) {
+            const videos = JSON.parse(localStorage.getItem('videos')) || [];
+            const videoIndex = videos.findIndex(v => v.id === videoId);
+            
+            if (videoIndex !== -1) {
+                videos[videoIndex].likes++;
+                localStorage.setItem('videos', JSON.stringify(videos));
+                
+                if (currentPage === 'video' && currentVideoId === videoId) {
+                    loadVideoPage(videoId);
+                }
+            }
+        }
+
+        function dislikeVideo(videoId) {
+            const videos = JSON.parse(localStorage.getItem('videos')) || [];
+            const videoIndex = videos.findIndex(v => v.id === videoId);
+            
+            if (videoIndex !== -1) {
+                videos[videoIndex].dislikes++;
+                localStorage.setItem('videos', JSON.stringify(videos));
+                
+                if (currentPage === 'video' && currentVideoId === videoId) {
+                    loadVideoPage(videoId);
+                }
+            }
+        }
+
+        // Функции для профиля
+        function loadProfile() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const profileHeader = document.getElementById('profileHeader');
+            const userVideos = document.getElementById('userVideos');
+            
+            if (!currentUser) {
+                navigate('home');
+                return;
+            }
+            
+            // Заполняем шапку профиля
+            profileHeader.innerHTML = `
+                <div class="profile-banner" style="background: ${currentUser.banner ? 'url(' + currentUser.banner + ')' : '#065fd4'}; background-size: cover;">
+                    <div class="banner-upload">
+                        <button class="banner-upload-btn" onclick="document.getElementById('bannerInput').click()">
+                            <i class="material-icons">edit</i> Изменить шапку
+                        </button>
+                        <input type="file" id="bannerInput" accept="image/*" style="display: none;" onchange="changeBanner()">
+                    </div>
+                </div>
+                <div class="avatar-upload">
+                    <img src="${currentUser.avatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'%3E%3Cpath fill=\'%23666\' d=\'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z\'/%3E%3C/svg%3E'}" 
+                         alt="Аватар" class="profile-avatar" id="profileAvatar">
+                    <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="changeAvatar()">
+                    <button class="btn" onclick="document.getElementById('avatarInput').click()">
+                        <i class="material-icons">edit</i> Сменить аватар
+                    </button>
+                </div>
+                <div class="profile-info">
+                    <h2>${currentUser.username}</h2>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">${currentUser.videos ? currentUser.videos.length : 0}</div>
+                            <div class="stat-label">Видео</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">0</div>
+                            <div class="stat-label">Подписчики</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">0</div>
+                            <div class="stat-label">Просмотры</div>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="btn" onclick="document.getElementById('uploadForm').scrollIntoView()">
+                            <i class="material-icons">video_call</i> Загрузить видео
+                        </button>
+                        <button class="btn btn-secondary" onclick="logout()">
+                            <i class="material-icons">exit_to_app</i> Выйти
+                        </button>
+                    </div>
+                    <div class="profile-description" id="profileDescription" style="margin-top: 20px;">
+                        ${currentUser.description ? `
+                            <p>${currentUser.description}</p>
+                            <button class="btn btn-secondary" onclick="editDescription()" style="margin-top: 10px;">
+                                <i class="material-icons">edit</i> Редактировать описание
+                            </button>
+                        ` : `
+                            <button class="btn" onclick="editDescription()">
+                                <i class="material-icons">add</i> Добавить описание каналу
+                            </button>
+                        `}
+                    </div>
+                </div>
+            `;
+            
+            // Загружаем видео пользователя
+            const allVideos = JSON.parse(localStorage.getItem('videos')) || [];
+            const userVideoIds = currentUser.videos || [];
+            const userVideosList = allVideos.filter(video => userVideoIds.includes(video.id));
+            
+            if (userVideosList.length === 0) {
+                userVideos.innerHTML = '<p style="text-align:center;padding:40px;">Вы еще не загрузили ни одного видео.</p>';
+            } else {
+                userVideos.innerHTML = userVideosList.map(video => `
+                    <div class="video-card" onclick="openVideo(${video.id})">
+                        <img src="${video.thumbnailUrl}" alt="Превью" class="video-thumbnail">
+                        <div class="video-info">
+                            <h3>${video.title}</h3>
+                            <p>${video.views} просмотров • ${new Date(video.date).toLocaleDateString()}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function editDescription() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) return;
+            
+            document.getElementById('descriptionModal').style.display = 'flex';
+            document.getElementById('channelDescription').value = currentUser.description || '';
+        }
+
+        function saveDescription() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) return;
+            
+            const description = document.getElementById('channelDescription').value;
+            
+            // Обновляем описание текущего пользователя
+            currentUser.description = description;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Обновляем описание в списке пользователей
+            const users = JSON.parse(localStorage.getItem('users'));
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex].description = description;
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+            
+            closeModal();
+            showNotification('Описание канала сохранено', 'success');
+            loadProfile();
+        }
+
+        function changeAvatar() {
+            const fileInput = document.getElementById('avatarInput');
+            const file = fileInput.files[0];
+            
+            if (!file) return;
+            
+            if (!file.type.match('image.*')) {
+                showNotification('Пожалуйста, выберите изображение', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const avatarUrl = e.target.result;
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                
+                // Обновляем аватар текущего пользователя
+                currentUser.avatar = avatarUrl;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                // Обновляем аватар в списке пользователей
+                const users = JSON.parse(localStorage.getItem('users'));
+                const userIndex = users.findIndex(u => u.id === currentUser.id);
+                if (userIndex !== -1) {
+                    users[userIndex].avatar = avatarUrl;
+                    localStorage.setItem('users', JSON.stringify(users));
+                }
+                
+                // Обновляем аватар в интерфейсе
+                document.getElementById('profileAvatar').src = avatarUrl;
+                updateUserActions();
+                
+                // Обновляем аватар во всех видео пользователя
+                const videos = JSON.parse(localStorage.getItem('videos'));
+                const updatedVideos = videos.map(video => {
+                    if (video.author === currentUser.id) {
+                        return {...video, authorAvatar: avatarUrl};
+                    }
+                    return video;
+                });
+                localStorage.setItem('videos', JSON.stringify(updatedVideos));
+                
+                showNotification('Аватар успешно изменен', 'success');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function changeBanner() {
+            const fileInput = document.getElementById('bannerInput');
+            const file = fileInput.files[0];
+            
+            if (!file) return;
+            
+            if (!file.type.match('image.*')) {
+                showNotification('Пожалуйста, выберите изображение', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const bannerUrl = e.target.result;
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                
+                // Обновляем шапку текущего пользователя
+                currentUser.banner = bannerUrl;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                // Обновляем шапку в списке пользователей
+                const users = JSON.parse(localStorage.getItem('users'));
+                const userIndex = users.findIndex(u => u.id === currentUser.id);
+                if (userIndex !== -1) {
+                    users[userIndex].banner = bannerUrl;
+                    localStorage.setItem('users', JSON.stringify(users));
+                }
+                
+                // Обновляем шапку в интерфейсе
+                const banner = document.querySelector('.profile-banner');
+                banner.style.background = `url(${bannerUrl})`;
+                banner.style.backgroundSize = 'cover';
+                
+                showNotification('Шапка профиля успешно изменена', 'success');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Функции для загрузки видео
+        function showUploadModal() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                showNotification('Для загрузки видео необходимо войти в систему', 'error');
+                showLoginForm();
+                return;
+            }
+            
+            document.getElementById('uploadModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+        }
+
+        function uploadVideo() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                showNotification('Для загрузки видео необходимо войти в систему', 'error');
+                return;
+            }
+            
+            const title = document.getElementById('videoTitle').value;
+            const description = document.getElementById('videoDescription').value;
+            const videoFile = document.getElementById('videoFile').files[0];
+            const thumbnailFile = document.getElementById('thumbnailFile').files[0];
+            
+            if (!title || !description || !videoFile || !thumbnailFile) {
+                showNotification('Заполните все поля', 'error');
+                return;
+            }
+            
+            // В реальном приложении здесь бы была загрузка файлов на сервер
+            const videoUrl = URL.createObjectURL(videoFile);
+            const thumbnailUrl = URL.createObjectURL(thumbnailFile);
+            
+            // Создаем новое видео
+            const newVideo = {
+                id: Date.now(),
+                title,
+                description,
+                videoUrl,
+                thumbnailUrl,
+                author: currentUser.id,
+                authorName: currentUser.username,
+                authorAvatar: currentUser.avatar,
+                views: 0,
+                likes: 0,
+                dislikes: 0,
+                date: new Date().toISOString()
+            };
+            
+            // Сохраняем видео в localStorage
+            const videos = JSON.parse(localStorage.getItem('videos')) || [];
+            videos.push(newVideo);
+            localStorage.setItem('videos', JSON.stringify(videos));
+            
+            // Добавляем видео в список видео пользователя
+            const users = JSON.parse(localStorage.getItem('users'));
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                if (!users[userIndex].videos) users[userIndex].videos = [];
+                users[userIndex].videos.push(newVideo.id);
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify(users[userIndex]));
+            }
+            
+            closeModal();
+            showNotification('Видео успешно загружено!', 'success');
+            
+            // Обновляем страницу
+            if (currentPage === 'profile') {
+                loadProfile();
+            } else {
+                loadVideos();
+            }
+        }
+
+        // Функция поиска
+        function searchVideos(query) {
+            if (!query.trim()) {
+                loadVideos();
+                return;
+            }
+            
+            const videos = JSON.parse(localStorage.getItem('videos')) || [];
+            const filteredVideos = videos.filter(video => 
+                video.title.toLowerCase().includes(query.toLowerCase()) || 
+                video.description.toLowerCase().includes(query.toLowerCase()) || 
+                video.authorName.toLowerCase().includes(query.toLowerCase())
+            );
+            
+            const videoGrid = document.getElementById('videoGrid');
+            if (!videoGrid) return;
+            
+            if (filteredVideos.length === 0) {
+                videoGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:40px;">По вашему запросу ничего не найдено</p>';
+                return;
+            }
+            
+            videoGrid.innerHTML = filteredVideos.map(video => `
+                <div class="video-card" onclick="openVideo(${video.id})">
+                    <img src="${video.thumbnailUrl}" alt="Превью" class="video-thumbnail">
+                    <div class="video-info">
+                        <h3>${video.title}</h3>
+                        <div class="channel-info">
+                            <img src="${video.authorAvatar || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'%3E%3Cpath fill=\'%23666\' d=\'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z\'/%3E%3C/svg%3E'}" class="channel-avatar">
+                            <p>${video.authorName}</p>
+                        </div>
+                        <p>${video.views} просмотров • ${new Date(video.date).toLocaleDateString()}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
